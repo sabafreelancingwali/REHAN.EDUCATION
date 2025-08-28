@@ -1,0 +1,68 @@
+<?php
+// contact.php
+?>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact — Rehan.Education</title>
+<style>
+  body{font-family:Inter,system-ui;background:#f7fbff;color:#071033;margin:0}
+  .wrap{max-width:860px;margin:28px auto;padding:20px}
+  .card{background:white;padding:20px;border-radius:14px;box-shadow:0 10px 30px rgba(15,23,42,0.06)}
+  form{display:grid;gap:10px}
+  input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6edf9;font-size:15px}
+  .row{display:flex;gap:10px}
+  .row .half{flex:1}
+  .btn{background:linear-gradient(90deg,#276EF1,#6C82FF);color:white;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+  .note{color:#59606b;font-size:14px}
+  .status{padding:10px;border-radius:8px;margin-bottom:10px}
+  .success{background:#ecfdf5;color:#065f46;border:1px solid #bbf7d0}
+  .error{background:#fff1f2;color:#991b1b;border:1px solid #fca5a5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <div style="font-weight:800">Contact Us</div>
+    <div style="color:#59606b">Call/WhatsApp: +44 7418 359852</div>
+  </div>
+ 
+  <div class="card">
+    <div id="statusBox" style="display:none" class="status"></div>
+ 
+    <form id="contactForm" action="contact_process.php" method="post" onsubmit="return submitForm(this)">
+      <input type="text" name="name" placeholder="Your name" required>
+      <div class="row">
+        <div class="half"><input type="email" name="email" placeholder="Your email" required></div>
+        <div class="half"><input type="text" name="phone" placeholder="Phone (optional)"></div>
+      </div>
+      <textarea name="message" rows="6" placeholder="Your message" required></textarea>
+      <div style="display:flex;gap:10px;align-items:center;justify-content:space-between">
+        <div class="note">We aim to respond in 24–48 hours.</div>
+        <button class="btn" type="submit">Send Message</button>
+      </div>
+    </form>
+  </div>
+ 
+  <div style="margin-top:12px;color:#59606b">Address: (Add your address here) • Email: info@rehan.education</div>
+</div>
+ 
+<script>
+  (function(){
+    const params = new URLSearchParams(location.search);
+    const s = params.get('status');
+    const box = document.getElementById('statusBox');
+    if(s === 'success'){ box.className='status success'; box.textContent = 'Your message was sent — thank you!'; box.style.display='block'; }
+    if(s === 'error'){ box.className='status error'; box.textContent = 'There was a problem sending your message. Please try again.'; box.style.display='block'; }
+  })();
+ 
+  function submitForm(form){
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    return true;
+  }
+</script>
+</body>
+</html>
